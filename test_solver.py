@@ -1,3 +1,5 @@
+# (C) 2015  Jean Nassar
+# Released under the GNU General Public License, version 3
 from solver import Bomb, SerialNumber
 
 
