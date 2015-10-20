@@ -143,8 +143,9 @@ class Bomb(object):
         -------
         to_cut : str
             The wire to cut, ordinal from left to right starting with one.
-      
+
         """
+        wires = wires.lower()
         ordinal = ["FIRST", "SECOND", "THIRD", "FOURTH", "FIFTH", "SIXTH"]
         if len(wires) == 3:
             if "r" not in wires:
@@ -158,7 +159,8 @@ class Bomb(object):
         elif len(wires) == 4:
             if wires.count("r") > 1 and self.serial_number.last_odd():
                 to_cut = ordinal[2 - wires[::-1].index("r")]
-            elif (wires[-1] == "y"and wires.count("r") == 0) or wires.count("b") == 1:
+            elif ((wires[-1] == "y"and wires.count("r") == 0)
+                  or wires.count("b") == 1):
                 to_cut = "FIRST"
             elif wires.count("y") > 1:
                 to_cut = "FOURTH"
@@ -218,7 +220,7 @@ class Bomb(object):
             The number at which to release the button.
 
             """
-            colour = input("Strip colour: ")
+            colour = input("Strip colour: ").lower()
             if colour == "b":
                 number = "FOUR"
             elif colour == "y":
@@ -227,6 +229,7 @@ class Bomb(object):
                 number = "ONE"
             return number
 
+        text = text.lower()
         if text == "abort" and colour == "b":
             to_hold = True
         elif self.n_batteries > 1 and text == "detonate":
