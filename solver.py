@@ -1,10 +1,34 @@
 class SerialNumber(object):
+    """
+    Class for the serial number.
+
+    Parameters
+    ----------
+    number : str
+        The serial number of the bomb.
+
+    Attributes
+    ----------
+    number : str
+        The serial number of the bomb.
+    digits : str
+        The sequence of digits in the serial number.
+
+    """
     def __init__(self, number):
-        """Requires a string"""
         self.number = number
         self.digits = [i for i in self.number if i.isdigit()]
 
     def has_vowel(self):
+        """
+        Check if the serial number contains any vowels.
+
+        Returns
+        -------
+        bool
+            True if the serial number contains a vowel.
+
+        """
         for letter in "aeiou":
             if letter in self.number.lower():
                 return True
@@ -12,9 +36,27 @@ class SerialNumber(object):
             return False
 
     def last_odd(self):
+        """
+        Check if the last digit in the serial number is odd.
+
+        Returns
+        -------
+        bool
+            True if the last digit is odd.
+
+        """
         return int(self.digits[-1]) % 2
 
     def last_even(self):
+        """
+        Check if the last digit in the serial number is even.
+
+        Returns
+        -------
+        bool
+            True if the last digit is odd.
+
+        """
         return not self.last_odd()
 
 
