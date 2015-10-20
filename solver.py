@@ -842,7 +842,20 @@ class Bomb(object):
                 instructions.append("right")
         return instructions
 
-    def passwords(self):
+    def passwords(self, initial):
+        """
+        Solve a *Passwords* module.
+
+        Run the solver. For each position, input all the possible letters
+        which can be entered. Mission control would obtain a shrinking list
+        of possible passwords.
+
+        Parameters
+        ----------
+        initial : str
+            The initial sequence of letters.
+
+        """
         all_passwords = (
             "about", "after", "again", "below", "could",
             "every", "first", "found", "great", "house",
@@ -853,7 +866,6 @@ class Bomb(object):
             "where", "which", "world", "would", "write"
         )
         active = set()
-        initial = input("Current set of letters: ")
         for pos, letter in enumerate(initial):
             for word in all_passwords:
                 if word[pos] == letter:
