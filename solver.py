@@ -1,3 +1,14 @@
+"""
+Solver for *Keep Talking and Nobody Explodes*.
+
+Based on *Bomb Defusal Manual*, v1r2, verification code 241. [#]_
+
+References
+----------
+.. [#] Bomb Defusal Manual, Version 1, Verification Code 241, Revision 2.
+       http://www.bombmanual.com/manual/1/html/index.html
+
+"""
 class SerialNumber(object):
     """
     Class for the serial number.
@@ -61,6 +72,38 @@ class SerialNumber(object):
 
 
 class Bomb(object):
+    """
+    The bomb to be defused.
+
+    Parameters
+    ----------
+    serial_number : SerialNumber
+        The serial number of the bomb.
+    n_batteries : int
+        The number of batteries on the bomb.
+    has_parallel : bool
+        Whether the bomb has a parallel port.
+    frk : bool
+        Whether the bomb has a FRK indicator.
+    car : bool
+        Whether the bomb has a CAR indicator.
+
+    Attributes
+    ----------
+    serial_number : SerialNumber
+        The serial number of the bomb.
+    n_batteries : int
+        The number of batteries on the bomb.
+    has_parallel : bool
+        Whether the bomb has a parallel port.
+    frk : bool
+        Whether the bomb has a FRK indicator.
+    car : bool
+        Whether the bomb has a CAR indicator.
+    n_strikes : int
+        The number of strikes the team has committed.
+
+    """
     def __init__(self, serial_number, n_batteries, has_parallel=False, frk=False, car=False):
         self.serial_number = SerialNumber(serial_number)
         self.n_batteries = n_batteries
@@ -68,18 +111,38 @@ class Bomb(object):
         self.frk = frk
         self.car = car
         self.n_strikes = 0
-        
+
     def strike(self):
+        """
+        Register a strike.
+
+        """
         self.n_strikes += 1
 
     def wires(self, wires):
         """
-        colours:
-            blue   = b
-            black  = k
-            red    = r
-            white  = w
-            yellow = y
+        Solve a *Wires* module.
+
+        Parameters
+        ----------
+        wires : str
+            A string containing the code for the wire colours.
+
+            **Colours :**
+
+            - black : k
+            - blue : b
+            - red : r
+            - white : w
+            - yellow : y
+
+            Therefore, a module containing three modules with white, blue, and
+            black, would be input as "wbk".
+
+        Returns
+        -------
+        to_cut : str
+            The wire to cut, ordinal from left to right starting with one.
       
         """
         ordinal = ["FIRST", "SECOND", "THIRD", "FOURTH", "FIFTH", "SIXTH"]
@@ -122,7 +185,39 @@ class Bomb(object):
         return to_cut
 
     def button(self, text, colour):
+        """
+        Solve a *Button* module.
+
+        Parameters
+        ----------
+        text : str
+            The text on the button.
+        colour : char
+            The colour of the button.
+
+            **Colours :**
+
+            - blue : b
+            - red : r
+            - white : w
+            - yellow : y
+            - none : n
+
+        Returns
+        -------
+        str
+            Instruction for the operator
+
+        """
         def release():
+            """
+            Determine the number at which to release the button.
+
+            Returns
+            -------
+            The number at which to release the button.
+
+            """
             colour = input("Strip colour: ")
             if colour == "b":
                 number = "FOUR"
@@ -148,18 +243,43 @@ class Bomb(object):
             to_hold = True
 
         if to_hold:
-            print("Hold until the timer contains:")
-            release()
+            return "HOLD until the timer contains a {n}".format(n=release())
         else:
-            return "TAP"
+            return "PRESS and immediately RELEASE"
 
     def keypad(self, *keys):
-        columns = [['q', 'at', 'lambda', 'zigzag', 'an', 'h', 'crescent'],
-                   ['eh', 'q', 'crescent', 'wu', 'star', 'h', 'question'],
-                   ['copyright', 'ot', 'wu', 'zhe', 'hoe', 'lambda', 'star'],
-                   ['six', 'para', 'keyblade', 'an', 'zhe', 'question', 'smile'],
-                   ['psi', 'smile', 'keyblade', 'crescent', 'para', 'xi', 'blackstar'],
-                   ['six', 'eh', 'neq', 'ae', 'psi', 'i', 'omega']]
+        """
+        Solve a *Keypads* module.
+
+        Parameters
+        ----------
+        keys : str
+            The names of the buttons. The order does not matter. Use as many as
+            needed.
+
+            The columns, from left to right, are:
+
+            - [q, at, lambda, zigzag, an, h, crescent]
+            - [eh, q, crescent, wu, star, h, question]
+            - [copyright, ot, wu, zhe, hoe, lambda, star]
+            - [six, para, keyblade, an, zhe, question, smile]
+            - [psi, smile, keyblade, crescent, para, xi, blackstar]
+            - [six, eh, neq, ae, psi, i, omega]
+
+        Returns
+        -------
+        str
+            The order in which the buttons are to be pressed.
+
+        """
+        columns = [
+            ['q', 'at', 'lambda', 'zigzag', 'an', 'h', 'crescent'],
+            ['eh', 'q', 'crescent', 'wu', 'star', 'h', 'question'],
+            ['copyright', 'ot', 'wu', 'zhe', 'hoe', 'lambda', 'star'],
+            ['six', 'para', 'keyblade', 'an', 'zhe', 'question', 'smile'],
+            ['psi', 'smile', 'keyblade', 'crescent', 'para', 'xi', 'blackstar'],
+            ['six', 'eh', 'neq', 'ae', 'psi', 'i', 'omega']
+        ]
 
         working_column = None
         keyset = set(keys)
@@ -174,6 +294,22 @@ class Bomb(object):
         return output
 
     def simon(self):
+        """
+        Solve a *Simon Says* module.
+
+        Run the solver, then input a colour every time. The solver will
+        generate the appropriate response. If a strike is incurred during the
+        loop, simply halt the operation of the program, run `strike`, and try
+        again.
+
+        **Colours :**
+
+        - blue : b
+        - green : g
+        - red : r
+        - yellow : y
+
+        """
         map_with_vowel = {
             0: {"r": "b",
                 "b": "r",
@@ -194,7 +330,7 @@ class Bomb(object):
                 "g": "g",
                 "y": "r"},
             1: {"r": "r",
-                "b": "b", 
+                "b": "b",
                 "g": "y",
                 "y": "g"},
             2: {"r": "y",
@@ -211,6 +347,15 @@ class Bomb(object):
             pass
 
     def whos(self):
+        """
+        Solve a *Who's on First* problem.
+
+        Run the solver. On each iteration, input the letters on the display.
+        The operator shall then relay the label of the appropriate button.
+        Mission control would then speak a list of the words, one at a time,
+        until a match is found. The operator presses the matching button.
+
+        """
         responses = {
             "READY": ("YES, OKAY, WHAT, MIDDLE, LEFT, PRESS, RIGHT, BLANK, "
                       "READY, NO, FIRST, UHHH, NOTHING, WAIT"),
@@ -284,7 +429,7 @@ class Bomb(object):
                     print("BOTTOM LEFT")
                 else:
                     print("BOTTOM RIGHT")
-                
+
                 label = input("Button label: ")
                 print(responses[label.upper()])
 
@@ -292,43 +437,71 @@ class Bomb(object):
             pass
 
     def memory(self):
+        """
+        Solve a *Memory* module.
+
+        Run the solver. The operator should relay the number on the screen.
+        Mission control instructs with regards to the button to be pressed.
+        Note that this can be either the label, or the position of the button.
+
+        Once a button is pressed, the operator confirms its number and
+        position, which is then input into the solver.
+
+        """
         class Solution(object):
+            """
+            A solution container.
+
+            """
             def __init__(self):
                 self.position = None
                 self.label = None
 
         def solve_stage(stage, display):
+            """
+            Solve a given stage.
+
+            Appends a solution to the `pressed` array.
+
+            Parameters
+            ----------
+            stage : int
+                The stage to be solved.
+            display : str
+                The text on the module display.
+
+            """
             soln = Solution()
             if stage == 1:
                 if display in ("1", "2"):
-                    soln.position = "second"
+                    soln.position = "SECOND"
                 elif display == "3":
-                    soln.position = "third"
+                    soln.position = "THIRD"
                 else:
-                    soln.position = "fourth"
+                    soln.position = "FOURTH"
             elif stage == 2:
                 if display in ("2", "4"):
                     soln.position = pressed[0].position
                 elif display == "1":
-                    soln.label = "4"
+                    soln.label = "FOUR"
                 else:
-                    soln.position = "first"
+                    soln.position = "FIRST"
             elif stage == 3:
                 if display == "1":
                     soln.label = pressed[1].label
                 elif display == "2":
                     soln.label = pressed[0].label
                 elif display == "3":
-                    soln.position = "third"
+                    soln.position = "THIRD"
                 elif display == "4":
-                    soln.value = "4"
+                    soln.value = "FOUR"
             elif stage == 4:
                 if display in ("3", "4"):
                     soln.position = pressed[1].position
                 elif display == "1":
                     soln.position = pressed[0].position
                 else:
-                    soln.position = "first"
+                    soln.position = "FIRST"
             else:
                 if display == "1":
                     soln.label = pressed[0].label
@@ -358,8 +531,22 @@ class Bomb(object):
             pass
 
     def morse(self):
+        """
+        Solve a *Morse Code* problem.
+
+        If the operator knows morse code, they can relay the letter directly.
+        Otherwise, they may speak the dits (dots) and dahs (dashes) out loud.
+        Mission control would enter them one at a time and the solver will
+        interpret them.
+
+        Returns
+        -------
+        str
+            The frequency to be selected.
+
+        """
         decrypt = {
-            ".-"  : "A",   "-...": "B",   "-.-.": "C", 
+            ".-"  : "A",   "-...": "B",   "-.-.": "C",
             "-.." : "D",   "."   : "E",   "..-.": "F",
             "--." : "G",   "....": "H",   ".."  : "I",
             ".---": "J",   "-.-" : "K",   ".-..": "L",
@@ -411,14 +598,25 @@ class Bomb(object):
 
     def complicated(self):
         """
-        colours:
-            blue    = b
-            red     = r
-            stripe  = s
-            neither = n
-      
+        Solve a *Complicated Wires* module.
+
+        Run the solver. For each wire, input whether the LED is on ("1") or off
+        ("0"), the wire colour, and whether a star is ("1") or is not ("0")
+        drawn. The colours are shown below.
+
+        **Colours :**
+
+        - blue : b
+        - red : r
+        - striped : s
+        - none : n
+
+        For each wire, wait until mission control declares whether or not to
+        cut the wire before proceeding.
+
         """
         def decide(letter):
+            """Print out whether or not to cut a wire."""
             if letter == "C":
                 to_cut = True
             elif letter == "D":
@@ -433,7 +631,7 @@ class Bomb(object):
                 print("CUT")
             else:
                 print("DO NOT CUT")
-        
+
         instructions = ["C", "C", "S", "D",  # 0000 to 0011
                         "S", "C", "S", "P",  # 0100 to 0111
                         "D", "B", "P", "P",  # 1000 to 1011
@@ -444,8 +642,8 @@ class Bomb(object):
             while True:
                 led, colour, star = input("Wire {}. led, colour, star: ".format(idx))
                 if colour == "r":
-                    red = "1"
                     blue = "0"
+                    red = "1"
                 elif colour == "b":
                     blue = "1"
                     red = "0"
@@ -463,6 +661,19 @@ class Bomb(object):
             pass
 
     def sequences(self):
+        """
+        Solve a *Wire Sequences* module.
+
+        Run the solver. For each step, enter the colour of the wire, and its
+        connection. The solver prints the decision for each wire.
+
+        **Colours :**
+
+        - blue : b
+        - black : k
+        - red : r
+
+        """
         counts = {"r": 0, "b": 0, "k": 0}
         cuts = {
             "r": ["c", "b", "a", "ac", "b", "ac", "abc", "ab", "b"],
@@ -472,12 +683,37 @@ class Bomb(object):
         try:
             while True:
                 colour, connection = input("Colour and connection: ")
-                print("CUT" if connection in cuts[colour][counts[colour]] else "DO NOT CUT")
+                print("CUT" if connection in cuts[colour][counts[colour]]
+                      else "DO NOT CUT")
                 counts[colour] += 1
         except KeyboardInterrupt:
             pass
 
     def maze(self, indicator, start, target):
+        """
+        Solve a *Maze* module.
+
+        The coordinates take the form of a tuple. The origin is at the top-left
+        corner of the maze. The first element denotes the x-direction, with
+        positive being to the right. The second element denotes the
+        y-direction, with positive being downwards. Note that all tuples start
+        at zero.
+
+        Parameters
+        ----------
+        indicator : (int, int)
+            The location of one indicator.
+        start : (int, int)
+            The starting location of the user.
+        target : (int, int)
+            The location of the target.
+
+        Returns
+        -------
+        instructions : list of str
+            A list of directions to take one at a time.
+
+        """
         if indicator == (0, 1) or indicator == (5, 2):
             maze = [
                 ["rd", "lr", "ld", "rd", "lr", "l"],
@@ -632,14 +868,33 @@ class Bomb(object):
                     working_active.remove(word)
             active = working_active
             print("Active words: {}".format(active))
-    
+
     def venting(self):
+        """Solve a *Venting Gas* module."""
         return "YES"
 
     def capacitor(self):
+        """Solve a *Capacitor Discharge* module."""
         return "HOLD DOWN LEVER"
 
     def knob(self, top_row):
+        """
+        Solve a *Knob* module.
+
+        In some cases, the status of the bottom LEDs may need to be provided.
+
+        Parameters
+        ----------
+        top_row : str
+            The status of the LEDs on the top row, from left to right. "1"
+            denotes a lit LED, and "0" denotes one which is off.
+
+        Returns
+        -------
+        str
+            The direction relative to "UP" in which to move the knob.
+
+        """
         if top_row == "101010":
             bottom_row = input("Bottom row: ")
             if bottom_row == "011011":
