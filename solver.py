@@ -22,13 +22,13 @@ class SerialNumber(object):
     ----------
     number : str
         The serial number of the bomb.
-    digits : str
+    digits : list of int
         The sequence of digits in the serial number.
 
     """
     def __init__(self, number):
         self.number = number
-        self.digits = [i for i in self.number if i.isdigit()]
+        self.digits = [int(i) for i in self.number if i.isdigit()]
 
     def has_vowel(self):
         """
@@ -56,7 +56,7 @@ class SerialNumber(object):
             True if the last digit is odd.
 
         """
-        return int(self.digits) % 2
+        return self.digits[-1] % 2
 
     def last_even(self):
         """
