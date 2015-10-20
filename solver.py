@@ -514,13 +514,13 @@ class Bomb(object):
                     soln.label = pressed[3].label
                 else:
                     soln.label = pressed[2].label
-                
+
             if soln.position is None:
-                print(soln.label.upper())
-                soln.position = input("Position: ")
+                print(soln.label)
+                soln.position = input("Button position: ")
             else:
-                print(soln.position.upper())
-                soln.label = input("Label: ")
+                print(soln.position)
+                soln.label = input("Button label: ")
             pressed.append(soln)
 
         pressed = []
@@ -592,10 +592,7 @@ class Bomb(object):
                         working_active.remove(word)
                 active = working_active
                 if len(active) == 1:
-                    print(frequency[active.pop()], "Mhz")
-                    break
-                idx += 1
-                
+                    return frequency[active.pop()], " Mhz"
         except KeyboardInterrupt:
             pass
 
