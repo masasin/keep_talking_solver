@@ -46,7 +46,7 @@ class TestBomb(object):
         assert self.bomb.wires("yby") == "SECOND"
 
     def test_button(self):
-        assert self.bomb.button("detonate", "r") == "TAP"
+        assert self.bomb.button("detonate", "r") == "PRESS and immediately RELEASE"
 
     def test_keypad(self):
         assert self.bomb.keypad("six", "para", "an", "smile") == ["six", "para", "an", "smile"]
@@ -54,7 +54,7 @@ class TestBomb(object):
 
     def test_simon_says(self):
         pass
-    
+
     def test_whos_on_first(self):
         pass
 
@@ -71,7 +71,7 @@ class TestBomb(object):
         pass
 
     def test_maze(self):
-        assert (self.bomb.maze((4, 2), (5, 0), (2, 4)) == 
+        assert (self.bomb.maze((4, 2), (5, 0), (2, 4)) ==
                 ["left", "down", "left", "left", "left", "left", "down",
                  "right", "down", "right", "right", "down", "left"])
 
