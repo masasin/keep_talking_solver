@@ -92,7 +92,7 @@ class Bomb(object):
 
     Attributes
     ----------
-    serial_number : SerialNumber
+    serial_number : string
         The serial number of the bomb.
     n_batteries : int
         The number of batteries on the bomb.
