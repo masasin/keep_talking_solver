@@ -578,9 +578,8 @@ class Bomb(object):
             "beats": "3.600"
         }
         active = set(frequency.keys())
-        idx = 0
         try:
-            while True:
+            for i in range(6):
                 char = input("Letter or morse: ")
                 if char.isalnum():
                     letter = char
@@ -588,7 +587,7 @@ class Bomb(object):
                     letter = decrypt[char].lower()
                 working_active = active.copy()
                 for word in active:
-                    if word[idx] != letter:
+                    if word[i] != letter:
                         working_active.remove(word)
                 active = working_active
                 if len(active) == 1:
