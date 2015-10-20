@@ -45,7 +45,7 @@ class SerialNumber(object):
             True if the last digit is odd.
 
         """
-        return int(self.digits[-1]) % 2
+        return int(self.digits) % 2
 
     def last_even(self):
         """
