@@ -210,7 +210,7 @@ class Bomb(object):
         Returns
         -------
         str
-            Instruction for the operator
+            Instruction for the diffuser
 
         """
         def release():
@@ -387,9 +387,9 @@ class Bomb(object):
         Solve a *Who's on First* problem.
 
         Run the solver. On each iteration, input the letters on the display.
-        The operator shall then relay the label of the appropriate button.
-        Mission control would then speak a list of the words, one at a time,
-        until a match is found. The operator presses the matching button.
+        The diffuser shall then relay the label of the appropriate button.
+        The expert would then speak a list of the words, one at a time,
+        until a match is found. The diffuser presses the matching button.
 
         """
         responses = {
@@ -476,11 +476,11 @@ class Bomb(object):
         """
         Solve a *Memory* module.
 
-        Run the solver. The operator should relay the number on the screen.
-        Mission control instructs with regards to the button to be pressed.
+        Run the solver. The diffuser should relay the number on the screen.
+        The expert instructs with regards to the button to be pressed.
         Note that this can be either the label, or the position of the button.
 
-        Once a button is pressed, the operator confirms its number and
+        Once a button is pressed, the diffuser confirms its number and
         position, which is then input into the solver.
 
         """
@@ -570,9 +570,9 @@ class Bomb(object):
         """
         Solve a *Morse Code* problem.
 
-        If the operator knows morse code, they can relay the letter directly.
+        If the diffuser knows morse code, they can relay the letter directly.
         Otherwise, they may speak the dits (dots) and dahs (dashes) out loud.
-        Mission control would enter them one at a time and the solver will
+        The expert would enter them one at a time and the solver will
         interpret them.
 
         Returns
@@ -643,7 +643,7 @@ class Bomb(object):
         - striped : s
         - none : n
 
-        For each wire, wait until mission control declares whether or not to
+        For each wire, wait until the expert declares whether or not to
         cut the wire before proceeding.
 
         """
@@ -880,7 +880,7 @@ class Bomb(object):
         Solve a *Passwords* module.
 
         Run the solver. For each position, input all the possible letters
-        which can be entered. Mission control would obtain a shrinking list
+        which can be entered. The expert would obtain a shrinking list
         of possible passwords.
 
         Parameters
