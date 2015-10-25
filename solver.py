@@ -262,14 +262,45 @@ class Bomb(object):
             The names of the buttons. The order does not matter. Use as many as
             needed.
 
-            The columns, from left to right, are:
+            The symbols below have the recommended name in the beginning. Feel
+            free to change them.
 
-            - [q, at, lambda, zigzag, an, h, crescent]
-            - [eh, q, crescent, wu, star, h, question]
-            - [copyright, ot, wu, zhe, hoe, lambda, star]
-            - [six, para, keyblade, an, zhe, question, smile]
-            - [psi, smile, keyblade, crescent, para, xi, blackstar]
-            - [six, eh, neq, ae, psi, i, omega]
+            - Ϙ: Q, neuter, uncrossed-female, hand-mirror, O-with-a-♥♥♥♥
+            - Ѧ: at, three-legged A, A-with-a-♥♥♥♥, little Yus
+            - ƛ: lambda, crossed lambda, half-life
+            - Ѭ: an, cthulhu, big Yus
+            - Ϟ: koppa, zigzag
+            - ϗ: H, cursive H/N with tail
+            - Ͽ: moon, crescent, backwards C, backwards C with-a-dot
+            - Ӭ: eh, epsilon, epsilon umlaut, euro
+            - Ҩ: loop, rollercoaster, cursive I, loop-dee-loop
+            - ☆: star, open star, empty star
+            - ¿: que, question, upside-down question mark, Spanish question mark
+            - ©: copy, copyright
+            - Ѽ: butt, ot, xbox, cyrillic omega
+            - Ж: zhe, X with an I
+            - Ԇ: hoe, komi dzje, incomplete R, trailing off 3
+            - ƀ: B, keyblade, crossed b, barred b, BT smashed
+            - б: 6, six, smashed 6, upside-down g, hooktop b
+            - ¶: para, paragraph, line-break, backwards P
+            - ټ: derp-face, smiley, Isolated Teh
+            - Ͼ: C, C with a dot
+            - Ѯ: ksi, dragon, alien 3, 3-with-antenna
+            - ★: black, blackstar, filled star, full star
+            - Ψ: psi, trident
+            - ҂: neq (pronounced neck), inequality, unequal
+            - æ: ae, "A E", ash
+            - Й: i, N, N with antenna, N with tail
+            - Ω: Omega
+
+            So the columns, from left to right, are:
+
+            - [q, at, lambda, koppa, an, h, moon]
+            - [eh, q, moon, loop, star, h, que]
+            - [copy, butt, loop, zhe, hoe, lambda, star]
+            - [6, para, b, an, zhe, que, smile]
+            - [psi, smile, b, c, para, ksi, black]
+            - [6, eh, neq, ae, psi, i, omega]
 
         Returns
         -------
@@ -278,12 +309,12 @@ class Bomb(object):
 
         """
         columns = [
-            ['q', 'at', 'lambda', 'zigzag', 'an', 'h', 'crescent'],
-            ['eh', 'q', 'crescent', 'wu', 'star', 'h', 'question'],
-            ['copyright', 'ot', 'wu', 'zhe', 'hoe', 'lambda', 'star'],
-            ['six', 'para', 'keyblade', 'an', 'zhe', 'question', 'smile'],
-            ['psi', 'smile', 'keyblade', 'crescent', 'para', 'xi', 'blackstar'],
-            ['six', 'eh', 'neq', 'ae', 'psi', 'i', 'omega']
+            ['q', 'at', 'lambda', 'koppa', 'an', 'h', 'moon'],
+            ['eh', 'q', 'moon', 'loop', 'star', 'h', 'que'],
+            ['copy', 'ot', 'loop', 'zhe', 'hoe', 'lambda', 'star'],
+            ['6', 'para', 'b', 'an', 'zhe', 'que', 'smile'],
+            ['psi', 'smile', 'b', 'c', 'para', 'ksi', 'black'],
+            ['6', 'eh', 'neq', 'ae', 'psi', 'i', 'omega']
         ]
 
         working_column = None
