@@ -375,12 +375,12 @@ class Bomb(object):
                 "y": "r"}
         }
         colour_map = map_with_vowel if self.serial_number.has_vowel() else map_with_no_vowel
-        try:
-            while True:
+        while True:
+            try:
                 colour = input("Colour: ")
                 print(colour_map[n_strikes][colour])
-        except KeyboardInterrupt:
-            pass
+            except KeyboardInterrupt:
+                break
 
     def whos(self):
         """
@@ -450,8 +450,8 @@ class Bomb(object):
             "LIKE": ("YOU'RE, NEXT, U, UR, HOLD, DONE, UH UH, WHAT?, UH HUH, "
                      "YOU, LIKE, SURE, YOU ARE, YOUR")
         }
-        try:
-            while True:
+        while True:
+            try:
                 display = input("Display: ")
                 if display == "ur":
                     print("TOP LEFT")
@@ -468,9 +468,8 @@ class Bomb(object):
 
                 label = input("Button label: ")
                 print(responses[label.upper()])
-
-        except KeyboardInterrupt:
-            pass
+            except KeyboardInterrupt:
+                break
 
     def memory(self):
         """
@@ -557,14 +556,14 @@ class Bomb(object):
             pressed.append(soln)
 
         pressed = []
-        try:
-            for i in range(1, 6):
+        for i in range(1, 6):
+            try:
                 print("Stage {}:".format(i))
                 display = input("Display: ")
                 solve_stage(i, display)
                 print("-" * 20)
-        except KeyboardInterrupt:
-            pass
+            except KeyboardInterrupt:
+                break
 
     def morse(self):
         """
@@ -611,8 +610,8 @@ class Bomb(object):
             "beats": "3.600"
         }
         active = set(frequency.keys())
-        try:
-            for i in range(6):
+        for i in range(6):
+            try:
                 char = input("Letter or morse: ")
                 if char.isalnum():
                     letter = char
@@ -625,8 +624,8 @@ class Bomb(object):
                 active = working_active
                 if len(active) == 1:
                     return frequency[active.pop()], " Mhz"
-        except KeyboardInterrupt:
-            pass
+            except KeyboardInterrupt:
+                break
 
     def complicated(self):
         """
@@ -669,9 +668,9 @@ class Bomb(object):
                         "D", "B", "P", "P",  # 1000 to 1011
                         "B", "B", "S", "D"]  # 1100 to 1111
 
-        try:
-            idx = 1
-            while True:
+        idx = 1
+        while True:
+            try:
                 led, colour, star = input("Wire {}. led, colour, star: ".format(idx))
                 if colour == "r":
                     blue = "0"
@@ -689,8 +688,8 @@ class Bomb(object):
                 letter = instructions[case]
                 decide(letter)
                 idx += 1
-        except KeyboardInterrupt:
-            pass
+            except KeyboardInterrupt:
+                break
 
     def sequences(self):
         """
@@ -712,14 +711,14 @@ class Bomb(object):
             "b": ["b", "ac", "b", "a", "b", "bc", "c", "ac", "a"],
             "k": ["abc", "ac", "b", "ac", "b", "bc", "ab", "c", "c"]
         }
-        try:
-            while True:
+        while True
+            try:
                 colour, connection = input("Colour and connection: ")
                 print("CUT" if connection in cuts[colour][counts[colour]]
                       else "DO NOT CUT")
                 counts[colour] += 1
-        except KeyboardInterrupt:
-            pass
+            except KeyboardInterrupt:
+                break
 
     def maze(self, indicator, start, target):
         """
