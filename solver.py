@@ -745,7 +745,7 @@ class Bomb(object):
             A list of directions to take one at a time.
 
         """
-        if indicator == (0, 1) or indicator == (5, 2):
+        if indicator in [(0, 1), (5, 2)]:
             maze = [
                 ["rd", "lr", "ld", "rd", "lr", "l"],
                 ["ud", "rd", "ul", "ur", "lr", "ld"],
@@ -754,7 +754,7 @@ class Bomb(object):
                 ["urd", "lr", "ld", "rd", "l", "ud"],
                 ["ur", "l", "ur", "ul", "r", "ul"]
             ]
-        elif indicator == (4, 1) or indicator == (1, 3):
+        elif indicator in [(4, 1), (1, 3)]:
             maze = [
                 ["r", "lrd", "l", "rd", "lrd", "l"],
                 ["rd", "ul", "rd", "ul", "ur", "ld"],
@@ -763,7 +763,7 @@ class Bomb(object):
                 ["ud", "d", "ud", "rd", "ul", "ud"],
                 ["u", "ur", "ul", "ur", "lr", "lu"]
             ]
-        elif indicator == (3, 3) or indicator == (5, 3):
+        elif indicator in [(3, 3), (5, 3)]:
             maze = [
                 ["dr", "lr", "ld", "d", "dr", "dl"],
                 ["u", "d", "ud", "ur", "lu", "ud"],
@@ -772,7 +772,7 @@ class Bomb(object):
                 ["ud", "ur", "ul", "ud", "ud", "ud"],
                 ["ur", "lr", "lr", "ul", "ur", "ul"]
             ]
-        elif indicator == (0, 0) or indicator == (0, 3):
+        elif indicator in [(0, 0), (0, 3)]:
             maze = [
                 ["rd", "ld", "r", "lr", "lr", "ld"],
                 ["ud", "ud", "dr", "lr", "lr", "uld"],
@@ -781,7 +781,7 @@ class Bomb(object):
                 ["udr", "lr", "lr", "lr", "ld", "ud"],
                 ["ur", "lr", "l", "r", "ul", "u"]
             ]
-        elif indicator == (4, 2) or indicator == (3, 5):
+        elif indicator in [(4, 2), (3, 5)]:
             maze = [
                 ["r", "lr", "lr", "lr", "lrd", "ld"],
                 ["rd", "lr", "lr", "lrd", "lu", "u"],
@@ -790,7 +790,7 @@ class Bomb(object):
                 ["ud", "rd", "lr", "ulr", "l", "ud"],
                 ["u", "ur", "lr", "lr", "lr", "lu"]
             ]
-        elif indicator == (4, 0) or indicator == (2, 4):
+        elif indicator in [(4, 0), (2, 4)]:
             maze = [
                 ["d", "dr", "ld", "r", "ldr", "ld"],
                 ["ud", "ud", "ud", "rd", "ul", "ud"],
@@ -799,7 +799,7 @@ class Bomb(object):
                 ["rd", "ul", "u", "ud", "ur", "uld"],
                 ["ur", "lr", "lr", "ul", "r", "ul"]
             ]
-        elif indicator == (1, 0) or indicator == (1, 5):
+        elif indicator in [(1, 0), (1, 5)]:
             maze = [
                 ["dr", "lr", "lr", "ld", "dr", "ld"],
                 ["ud", "rd", "l", "ur", "lu", "ud"],
@@ -808,7 +808,7 @@ class Bomb(object):
                 ["ud", "u", "ur", "lr", "ld", "ud"],
                 ["ur", "lr", "lr", "lr", "ulr", "ul"]
             ]
-        elif indicator == (3, 0) or indicator == (2, 3):
+        elif indicator in [(3, 0), (2, 3)]:
             maze = [
                 ["d", "dr", "lr", "ld", "dr", "ld"],
                 ["udr", "ulr", "l", "ur", "ul", "ud"],
@@ -817,7 +817,7 @@ class Bomb(object):
                 ["ud", "d", "ur", "lr", "lr", "l"],
                 ["ur", "ulr", "lr", "lr", "lr", "l"]
             ]
-        else:
+        elif indicator in [(1, 2), (0, 4)]:
             maze = [
                 ["d", "dr", "lr", "lr", "ldr", "ld"],
                 ["ud", "ud", "rd", "l", "ud", "ud"],
@@ -826,6 +826,8 @@ class Bomb(object):
                 ["ud", "ud", "ud", "dr", "dl", "u"],
                 ["ur", "ul", "ur", "ul", "ur", "l"]
             ]
+        else:
+            return "Error: Maze not found!"
 
         visited = []
         branches = []
