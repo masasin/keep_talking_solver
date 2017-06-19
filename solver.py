@@ -42,11 +42,7 @@ class SerialNumber(object):
             True if the serial number contains a vowel.
 
         """
-        for letter in "aeiou":
-            if letter in self.number.lower():
-                return True
-        else:
-            return False
+        return any(letter in self.number.lower() for letter in "aeiou")
 
     def last_odd(self):
         """
